@@ -1,0 +1,11 @@
+<div class="overlay">
+    <div class="modal">
+        <div class="modal__body">
+            <p>¿Estás seguro de eliminar el producto <b>{{ product.name }}</b>?</p>
+        </div>
+        <div class="modal__buttons">
+            <button (click)="closeModal()">Cancelar</button>
+            <button (click)="deleteProduct()">Confirmar</button>
+        </div>
+    </div>
+</div>

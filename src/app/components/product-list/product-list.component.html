@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="products">
+        <div class="products__header">
+            <div class="products__header-search">
+                <input type="text" placeholder="Search..." [formControl]="searchControl">
+            </div>
+            <div class="products__header-button">
+                <button routerLink="/register">Agregar</button>
+            </div>
+        </div>
+        <div class="products__body">
+            <div class="products__body-table" *ngIf="products.length > 0; else emptySection">
+                <table cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Logo</th>
+                            <th>Nombre del producto</th>
+                            <th>Descripción</th>
+                            <th>Fecha de liberación</th>
+                            <th>Fecha de reestructuración</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of products; let i = index">
+                            <td>
+                                <img [src]="product.logo" alt="">
+                            </td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.description }}</td>
+                            <td>{{ product.date_release | date:'dd/MM/yyyy': 'UTC' }}</td>
+                            <td>{{ product.date_revision | date: 'dd/MM/yyyy': 'UTC' }}</td>
+                            <td>
+                                <div class="dropdown" (click)="toggleDropDown(product.id)">
+                                    <div class="dropdown-icon">
+                                        <div class="circle"></div>
+                                        <div class="circle"></div>
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="dropdown-content" [ngStyle]="product.openDropdown ? { 'display': 'block' }: { 'display': 'none' }">
+                                      <ul>
+                                        <li (click)="editProduct(product)">Editar</li>
+                                        <li (click)="deleteProduct(product)">Eliminar</li>
+                                      </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="products__body-pagination">
+                <div class="result">
+                    <p>{{ products.length }} Resultados</p>
+                </div>
+                <div class="pagination">
+                    <select (change)="setProductsQuantity($event)" [(ngModel)]="productsQuantity">
+                        <option [value]="this.productsAux.length">Todos</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+            </div>
+            <ng-template #emptySection>
+                <div class="empty-products">
+                    <p>No hay productos disponibles</p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>
+
+<app-delete-product-modal *ngIf="openDeleteModal" [product]="productToDelete" (close)="closeModal()"></app-delete-product-modal>

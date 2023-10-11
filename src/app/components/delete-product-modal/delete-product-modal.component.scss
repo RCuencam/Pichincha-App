@@ -1,0 +1,58 @@
+.overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 300ms;
+    .modal {
+        max-width: 600px;
+        padding: 20px 0;
+        background-color: #fff;
+        animation: fadeIn 300ms;
+        border-radius: 8px;
+        &__body {
+            border-bottom: 1px solid rgb(231, 231, 231);
+            padding: 20px;
+        }
+        &__buttons {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            button {
+                width: 100%;
+                padding: 15px 0;
+                border-radius: 8px;
+                border: 0;
+                outline: 0;
+                font-weight: bold;
+                color: #1B2C54;
+                cursor: pointer;
+                font-weight: bold;
+                &:first-child {
+                    background-color: #E9ECF3;
+                }
+                &:last-child {
+                    background-color: #FFDD00;
+                }
+            }
+
+            @media screen and (max-width: 500px) {
+                flex-direction: column;
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

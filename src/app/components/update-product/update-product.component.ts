@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { ProductService } from 'src/app/services/product/product.service';
+import { ProductService } from '../../services/product/product.service';
 
 @Component({
   selector: 'app-update-product',
@@ -11,7 +10,11 @@ import { ProductService } from 'src/app/services/product/product.service';
 })
 export class UpdateProductComponent implements OnInit {
   updateForm!: FormGroup;
-  constructor(private fb: FormBuilder, private productService: ProductService, private router: Router) {}
+  constructor(private fb: FormBuilder, private productService: ProductService, private router: Router) {
+    if(!this.productService.productToEdit) {
+      this.router.navigate(['/'])
+    }
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -19,9 +22,6 @@ export class UpdateProductComponent implements OnInit {
   
   initForm(): void {
     const currentProduct = this.productService.productToEdit;
-    if(!currentProduct) {
-      this.router.navigate(['/'])
-    }
     
     this.updateForm = this.fb.group({
       id: [{ value: currentProduct.id, disabled: true  }, [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],

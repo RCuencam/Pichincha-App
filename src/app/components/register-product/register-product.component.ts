@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { ProductService } from 'src/app/services/product/product.service';
+import { ProductService } from '../../services/product/product.service';
 
 @Component({
   selector: 'app-register-product',

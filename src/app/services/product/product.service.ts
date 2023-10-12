@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { IProduct } from 'src/app/models/product';
-import { environment } from 'src/environments/environment';
+import { IProduct } from '../../models/product';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

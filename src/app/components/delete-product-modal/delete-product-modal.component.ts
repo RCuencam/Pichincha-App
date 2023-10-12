@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { IProduct } from 'src/app/models/product';
-import { ProductService } from 'src/app/services/product/product.service';
+import { IProduct } from '../../models/product';
+import { ProductService } from '../../services/product/product.service';
 
 @Component({
   selector: 'app-delete-product-modal',
@@ -22,7 +22,7 @@ export class DeleteProductModalComponent {
     this.productService.loading = true;
     this.productService.deleteProduct(this.product.id).subscribe(resp => {
       this.productService.loading = false;
-      this.router.navigate(['/']);
+      //this.router.navigate(['/']);
     }, error => {
       this.productService.loading = false;
     })

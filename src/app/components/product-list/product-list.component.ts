@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { IProduct } from 'src/app/models/product';
-import { ProductService } from 'src/app/services/product/product.service';
+import { IProduct } from '../../models/product';
+import { ProductService } from '../../services/product/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -18,7 +18,7 @@ export class ProductListComponent implements OnInit {
   openDeleteModal: boolean = false;
   productToDelete!: IProduct;
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(private productService: ProductService, private router: Router, private zone: NgZone) {}
 
   ngOnInit(): void {
     this.getProducts();
@@ -46,9 +46,12 @@ export class ProductListComponent implements OnInit {
     })
   }
 
+  
   editProduct(product: IProduct) {
     this.productService.productToEdit = product;
-    this.router.navigate(['/update'])
+    this.zone.run(() => {
+      this.router.navigate(['/update'])
+    }) 
   }
 
   deleteProduct(product: IProduct) {
